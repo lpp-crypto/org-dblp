@@ -18,6 +18,7 @@ def process_arguments():
 def main_cli():
     args = process_arguments()
     res = search_DBLP(args.query)
+    print("* Query:", args.query)
     if len(res) == 0:
         print("No paper found")
     else:

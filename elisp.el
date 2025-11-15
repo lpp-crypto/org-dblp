@@ -1,4 +1,4 @@
-; Time-stamp: <2025-11-14 16:54:53>
+; Time-stamp: <2025-11-15 18:17:14>
 ; simply add the following elisp code to your emacs configuration to obtain the org-dblp interactive function
 
 
@@ -12,12 +12,13 @@
     (read-string "open URL:")))
   (with-current-buffer
       (switch-to-buffer "org-dblp")
-      (org-mode)
-      (insert (shell-command-to-string
-               (format
-                "~/.local/bin/orgDBLP_query -u \"%s\" -q \"%s\"" ; <-- !TODO! update this path
-                url
-                query)))))
+    (org-mode)
+    (end-of-buffer)
+    (insert (shell-command-to-string
+             (format
+              "~/.local/bin/orgDBLP_query -u \"%s\" -q \"%s\"" ; <-- !TODO! update this path
+              url
+              query)))))
 
 
 ;!SECTION! org-roam functions
