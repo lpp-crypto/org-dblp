@@ -27,3 +27,5 @@ def main_cli():
             print()
         
 
+if __name__ == "__main__":
+    main_cli()
