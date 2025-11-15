@@ -18,7 +18,11 @@ def process_arguments():
 def main_cli():
     args = process_arguments()
     res = search_DBLP(args.query)
-    for x in res:
-        print(org_format(x, url=args.url))
-        print()
+    if len(res) == 0:
+        print("No paper found")
+    else:
+        for x in res:
+            print(org_format(x, url=args.url))
+            print()
+        
 

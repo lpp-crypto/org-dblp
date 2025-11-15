@@ -22,9 +22,16 @@ def search_DBLP(q, max_hits=5) -> list[dict | None]:
             'h': max_hits,
         }
         r = requests.get(f'{BASE_URL}?{urlencode(options)}').json()
-        hit = r['result']['hits']['hit']
-        for entry in hit:
-            info = entry['info']
-            info['authors'] = [author['text'] for author in info['authors']['author']]
-            results.append(info)
+        if "hit" in r['result']['hits']:
+            hit = r['result']['hits']['hit']
+            for entry in hit:
+                info = entry['info']
+                authors_list = info['authors']['author']
+                # the authors_list is a list of dictionaries if there are several authors, or a dictionary is there is a single one.
+                if isinstance(authors_list, (list)): 
+                    info['authors'] = [author['text'] for
+                                       author in authors_list]
+                else:
+                    info['authors'] = authors_list['text']
+                results.append(info)
     return results

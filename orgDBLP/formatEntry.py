@@ -32,7 +32,7 @@ def org_format(entry, url):
         else:
             url = ""
     result = "* [[{}][{}]]\n".format(url, entry["title"])
-    result += ":PROPERTIES:\n:ROAM_EXCLUDE: t\n"
+    result += ":PROPERTIES:\n"
     for k in POTENTIAL_FIELDS:
         if k == "ee":
             if include_published:
