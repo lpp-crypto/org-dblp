@@ -8,13 +8,13 @@ def simplify(s):
 
     
 POTENTIAL_FIELDS = {
-    "authors": ":AUTHORS: {}\n",
-    "title": ":TITLE: {}\n",
-    "doi": ":DOI: {}\n",
-    "year": ":YEAR: {}\n",
-    "url" : ":BIBTEX: {}?view=bibtex\n",
-    "ee" : ":PUBLISHED: {}\n",
-    "venue": ":VENUE: {}\n",
+    "authors": ":AUTHORS: {}",
+    "title"  : ":TITLE:   {}",
+    "doi"    : ":DOI:     {}",
+    "year"   : ":YEAR:    {}",
+    "url"    : ":BIBTEX:  {}?view=bibtex",
+    "ee"     : ":OFFICIAL:{}",
+    "venue"  : ":VENUE:   {}",
     
 }
 
@@ -34,10 +34,13 @@ def org_format(entry, url):
     result = "** [[{}][{}]]\n".format(url, entry["title"])
     result += ":PROPERTIES:\n"
     for k in POTENTIAL_FIELDS:
+        kept = False
         if k == "ee":
             if include_published:
-                result += POTENTIAL_FIELDS[k].format(simplify(entry[k]))
+                kept = True
         elif k in entry:
-            result += POTENTIAL_FIELDS[k].format(simplify(entry[k]))
+            kept = True
+        if kept:
+            result += POTENTIAL_FIELDS[k].format(simplify(entry[k])) + "\n"
     return result + ":END:"
 
